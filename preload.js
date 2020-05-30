@@ -57,7 +57,7 @@ function crawl() {
 	var linkNumber = getRandomInt(0, links.length);
 	var link = links[linkNumber].getAttribute("href");
 
-	var prob = getRandomInt(1, 15);
+	var prob = getRandomInt(1, 30);
 	var prob2 = getRandomInt(0, items.length);
 	var compliance = prob === 7;
 	var linkShowBanner = link.indexOf('https://adserver.bajopalabra.com.mx/');
