@@ -3,6 +3,10 @@
 
 var shell = require('electron').shell;
 
+window.addEventListener("load", function(event) {
+    console.log("'Todos los recursos terminaron de cargar!");
+
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -19,12 +23,7 @@ function eventFire(el, etype){
   }
 }
 
-let not_valid = [
-	'https://bajopalabra.com.mx/quienes-somos',
-	'https://bajopalabra.com.mx/codigo-de-etica',
-	'https://bajopalabra.com.mx/declaracion-de-accesibilidad-para-todos-bajo-palabra',
-	'https://bajopalabra.com.mx/nuestra-linea-editorial'
-];
+
 
 function crawl() {
 	let links = document.getElementsByTagName("a");
@@ -32,13 +31,6 @@ function crawl() {
 	var linkNumber = getRandomInt(6, links.length);
 
 	var link = links[linkNumber].getAttribute("href");
-
-	not_valid.forEach(function(item){
-		if (link.indexOf(item) >= 0) {
-			crawl();	
-		}
-	})
-
 
 	if (link.indexOf('https://bajopalabra.com.mx/') >= 0) {
 		window.location.href = link;
@@ -51,3 +43,5 @@ setTimeout(function(){
 
 	crawl();
  }, 5000);
+
+ });
