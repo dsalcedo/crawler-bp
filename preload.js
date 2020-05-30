@@ -60,7 +60,7 @@ function crawl() {
 	var prob = getRandomInt(1, 30);
 	var prob2 = getRandomInt(0, items.length);
 	var compliance = prob === 7;
-	var linkShowBanner = link.indexOf('https://adserver.bajopalabra.com.mx/');
+	var linkShowBanner = link.indexOf('https://adserver.bajopalabra.com.mx');
 	
 	if (linkShowBanner >= 0 || compliance) {
 		if (linkShowBanner >= 0) {
@@ -77,7 +77,7 @@ function crawl() {
 		link.indexOf('https://instagram.com') >= 0 ||
 		link.indexOf('https://www.youtube.com') >= 0 ||
 		link.indexOf('sharer/sharer.php') >= 0
-	){
+	) {
 		crawl();
 	}else if (link.indexOf('https://bajopalabra.com.mx/') >= 0) {
 		window.location.href = link;
@@ -95,11 +95,15 @@ window.addEventListener("load", function(event) {
 		setInterval(function(){ 
 			crawl();
 		}, timer);
+
+		setTimeout(function(){
+			crawl();
+		}, 12000)
 	}
  });
 
 window.addEventListener('error', function() {
 	setTimeout(function(){ 
 		crawl();
-	 }, 3000);
+	 }, 5000);
 });
