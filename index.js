@@ -9,13 +9,12 @@ const createWindow = () =>{
         resizable: true,
         webPreferences:{
             preload: path.resolve(path.join(__dirname, "preload.js")),
-            // preload: path.join(app.getAppPath(), 'preload.js'),
             nodeIntegration: false,
             show: false
         }
     });
     win.maximize();
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
     //win.webContents.
 
     win.loadURL(url);
