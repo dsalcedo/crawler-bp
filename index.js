@@ -1,26 +1,24 @@
 const path = require("path");
 const {app, BrowserWindow} = require('electron');
 
-const urls = [
-    "https://bajopalabra.com.mx"
-]
-
+const url = "https://bajopalabra.com.mx";
 
 const createWindow = () =>{
     win = new BrowserWindow({
         center: true,
         resizable: true,
         webPreferences:{
-            preload: path.join(app.getAppPath(), 'preload.js'),
-            nodeIntegration: true,
+            preload: path.resolve(path.join(__dirname, "preload.js")),
+            // preload: path.join(app.getAppPath(), 'preload.js'),
+            nodeIntegration: false,
             show: false
-        },
+        }
     });
     win.maximize();
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
     //win.webContents.
 
-    win.loadURL(urls[0]);
+    win.loadURL(url);
     // win.loadURL(url.format({
     //     pathname: path.join(__dirname,"index.html"),
     //     protocol: 'file',

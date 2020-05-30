@@ -1,29 +1,19 @@
-// All of the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
+ /**
+* Specifies a script that will be loaded before other scripts run in the page.
+* This script will always have access to node APIs no matter whether node
+* integration is turned on or off. The value should be the absolute file path to
+* the script. When node integration is turned off, the preload script can
+* reintroduce Node global symbols back to the global scope. See example .
+*/
 
 var shell = require('electron').shell;
-
-window.addEventListener("load", function(event) {
-    console.log("'Todos los recursos terminaron de cargar!");
-
+let loaded = false;
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-function eventFire(el, etype){
-  if (el.fireEvent) {
-    el.fireEvent('on' + etype);
-  } else {
-    var evObj = document.createEvent('Events');
-    evObj.initEvent(etype, true, false);
-    el.dispatchEvent(evObj);
-  }
-}
-
-
 
 function crawl() {
 	let links = document.getElementsByTagName("a");
@@ -39,9 +29,20 @@ function crawl() {
 	}	
 }
 
-setTimeout(function(){ 
-
-	crawl();
- }, 5000);
-
+window.addEventListener("load", function(event) {
+	if (!loaded) {
+		loaded = true;
+		var timer = getRandomInt(5000, 15000);
+		console.log("All website has been loaded");
+		console.info(`Crawl should be start in ${timer} seconds`);
+		setInterval(function(){ 
+			crawl();
+		}, timer);
+	}
  });
+
+window.addEventListener('error', function() {
+	setTimeout(function(){ 
+		crawl();
+	 }, 3000);
+});
